@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: wheat;
+            font-family: tahoma;
+            text-align: center;
+        }
+
+        input {
+            padding: 1rem;
+            text-align: center;
+            font-size: xx-large;
+            border-radius: 50px;
+            background-color: transparent;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            /* min-width: 30%; */
+            max-width: 80%;
+            margin: 1rem auto;
+            padding: 0 .5rem;
+            font-size: x-large;
+            border: 1px solid rgba(110, 110, 110, 0.158);
+            border-radius: 15px;
+        }
+
+        .pal {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <p>
+            type a word to see if it's palindrome...
+        </p>
+
+        <input type="text" placeholder="write here">
+        <div class="result-container" style="display: none;">
+            <p id="word"></p>
+            <p class="pal"></p>
+            <p id="reversed-word"></p>
+        </div>
+
+    </div>
+
+
+    <script>
+        const input = document.querySelector('input');
+        const wordP = document.getElementById('word');
+        const reversedWordP = document.getElementById('reversed-word');
+        const result = document.getElementById('result');
+        const pal = document.querySelector('.pal');
+        const resultContainer = document.querySelector('.result-container')
+
+
+        input.addEventListener('input', () => {
+            let word = input.value;
+            let wordLength = word.length;
+            let reversedWord = '';
+            for (let i = 0; i < word.length; i++) {
+                reversedWord += word.slice(wordLength - 1, wordLength);
+                wordLength--
+            }
+            wordP.textContent = word;
+            reversedWordP.textContent = reversedWord;
+
+            if (word === reversedWord && word.length >= 2) {
+                pal.textContent = 'Palindrome';
+                resultContainer.style.backgroundColor = '#acff2fc0';
+                resultContainer.style.color = 'black';
+                resultContainer.style.display = 'flex'
+            } else if (word !== reversedWord && word.length >= 2) {
+                pal.textContent = 'Not Palindrome';
+                resultContainer.style.backgroundColor = '#b31a1a';
+                resultContainer.style.color = 'white';
+                resultContainer.style.display = 'flex'
+            } else {
+                resultContainer.style.display = 'none'
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

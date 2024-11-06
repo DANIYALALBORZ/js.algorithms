@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: wheat;
+            font-family: 'Tahoma', sans-serif;
+            text-align: center;
+        }
+
+        input {
+            padding: 1rem;
+            text-align: center;
+            font-size: xx-large;
+            border-radius: 50px;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Check if a word is Palindrome</h1>
+    <input type="text" placeholder="Enter a word" />
+    <div class="result-container" style="display: none;">
+        <p class="pal" id="result"></p>
+        <p>Original: <span id='word'></span></p>
+        <p>Reversed: <span id='reversed-word'></span></p>
+    </div>
+    <script>
+
+        const input = document.querySelector('input');
+        const wordP = document.getElementById('word');
+        const reversedWordP = document.getElementById('reversed-word');
+        const result = document.getElementById('result');
+        const pal = document.querySelector('.pal');
+        const resultContainer = document.querySelector('.result-container');
+
+        // Function to check if the word is a palindrome
+        function isPalindrome(word) {
+            // Remove any non-alphanumeric characters and convert to lowercase
+            const cleanedWord = word.replace(/[^a-z0-9]/gi, '').toLowerCase();
+            // Compare the cleaned word with its reverse
+            return cleanedWord === cleanedWord.split('').reverse().join('');
+        }
+
+        input.addEventListener('input', () => {
+            let word = input.value;
+            wordP.textContent = word;
+
+            if (word.length >= 2) {
+                if (isPalindrome(word)) {
+                    pal.textContent = 'Palindrome';
+                    resultContainer.style.backgroundColor = '#acff2fc0';
+                    resultContainer.style.color = 'black';
+                    resultContainer.style.display = 'flex';
+                    reversedWordP.textContent = word.split('').reverse().join('');
+                } else {
+                    pal.textContent = 'Not Palindrome';
+                    resultContainer.style.backgroundColor = '#b31a1a';
+                    resultContainer.style.color = 'white';
+                    resultContainer.style.display = 'flex';
+                    reversedWordP.textContent = word.split('').reverse().join('');
+                }
+            } else {
+                resultContainer.style.display = 'none';
+            }
+        });
+
+    </script>
+</body>
+
+</html>
