@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: wheat;
+            font-family: tahoma;
+            text-align: center;
+        }
+
+        input {
+            padding: 1rem;
+            text-align: center;
+            font-size: xx-large;
+            border-radius: 50px;
+            background-color: transparent;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            /* min-width: 30%; */
+            max-width: 80%;
+            margin: 1rem auto;
+            padding: 0 .5rem;
+            font-size: x-large;
+            border: 1px solid rgba(110, 110, 110, 0.158);
+            border-radius: 15px;
+        }
+
+        .pal {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            اعداد را با فاصله وارد کنید تا مرتب شوند...
+        </p>
+
+        <input type="text" placeholder="مثال: 5 2 8 1 9">
+        <div class="result-container" style="display: none;">
+            <p id="numbers"></p>
+            <p class="bub">مرتب شده:</p>
+            <p id="sorted-number"></p>
+        </div>
+
+    </div>
+
+    <script>
+        const input = document.querySelector('input');
+        const resultContainer = document.querySelector('.result-container');
+        const numbers = document.querySelector('#numbers');
+        const sortedNumber = document.querySelector('#sorted-number');
+
+        input.addEventListener('change', () => {
+            const inputText = input.value;
+            const numArray = inputText.trim().split(/\s+/).map(Number);
+
+            // نمایش اعداد اولیه
+            numbers.textContent = 'اعداد وارد شده: ' + numArray.join(', ');
+
+            // مرتب‌سازی اعداد با الگوریتم Bubble Sort
+            bubbleSort(numArray);
+
+            // نمایش اعداد مرتب شده
+            sortedNumber.textContent = numArray.join(', ');
+
+            // نمایش بخش نتیجه
+            resultContainer.style.display = 'block';
+        });
+
+        function bubbleSort(arr) {
+            let n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - 1 - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        // جابجایی اعداد
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: wheat;
+            font-family: tahoma;
+            text-align: center;
+        }
+
+        input {
+            padding: 1rem;
+            text-align: center;
+            font-size: xx-large;
+            border-radius: 50px;
+            background-color: transparent;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            /* min-width: 30%; */
+            max-width: 80%;
+            margin: 1rem auto;
+            padding: 0 .5rem;
+            font-size: x-large;
+            border: 1px solid rgba(110, 110, 110, 0.158);
+            border-radius: 15px;
+        }
+
+        .pal {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <p>
+            Type numbers separated by spaces to sort them...
+        </p>
+
+        <input type="text" placeholder="e.g., 5 2 8 1 9">
+        <div class="result-container" style="display: none;">
+            <p id="numbers"></p>
+            <p class="bub">Sorted:</p>
+            <p id="sorted-number"></p>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const input = document.querySelector('input');
+        const resultContainer = document.querySelector('.result-container');
+        const numbers = document.querySelector('#numbers');
+        const sortedNumber = document.querySelector('#sorted-number');
+
+        input.addEventListener('input', function () {
+            const inputValues = input.value.trim();
+            if (inputValues === "") {
+                resultContainer.style.display = "none";
+                return;
+            }
+
+            const numArray = inputValues.split(' ').map(Number);
+            if (numArray.some(isNaN)) {  // Check for non-numeric input
+                sortedNumber.textContent = "Invalid input: Please enter numbers only.";
+                numbers.textContent = "";
+                resultContainer.style.display = "block";
+                return;
+            }
+
+
+            numbers.textContent = "Entered numbers: " + numArray.join(', ');
+
+
+            const sortedArray = bubbleSort(numArray.slice()); // Create a copy to avoid modifying the original
+
+            sortedNumber.textContent = sortedArray.join(', ');
+
+            resultContainer.style.display = "block";
+        });
+
+
+
+        function bubbleSort(arr) {
+            const n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        // Swap arr[j] and arr[j+1]
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                    }
+                }
+            }
+            return arr;
+        }
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: wheat;
+            font-family: tahoma;
+            text-align: center;
+        }
+
+        input {
+            padding: 1rem;
+            text-align: center;
+            font-size: xx-large;
+            border-radius: 50px;
+            background-color: transparent;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            /* min-width: 30%; */
+            max-width: 80%;
+            margin: 1rem auto;
+            padding: 0 .5rem;
+            font-size: x-large;
+            border: 1px solid rgba(110, 110, 110, 0.158);
+            border-radius: 15px;
+        }
+
+        .pal {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <p>
+            type numbers to sort them...
+        </p>
+
+        <input type="text" placeholder="write here">
+        <div class="result-container" style="display: none;">
+            <p id="numbers"></p>
+            <p class="bub">sorted :</p>
+            <p id="sorted-number"></p>
+        </div>
+
+    </div>
+
+
+    <script>
+        const input = document.querySelector('input');
+        const resultContainer = document.querySelector('.result-container');
+        const numbers = document.querySelector('#numbers');
+        const bub = document.querySelector('.bub');
+        const sortedNumber = document.querySelector('#sorted-number');
+
+        input.addEventListener('input', (e) => {
+            let unSorts = e.target.value;
+            unSorts = unSorts.replace(/[^0-9a-zA-Z]/g, '');
+            unSorts.length >= 15 && unSorts.slice(0, 15)
+            e.target.value = unSorts;
+            unSorts = unSorts.toLowerCase();
+            let unSortsArray = unSorts.split('');
+            if (unSortsArray.length >= 2) {
+                for (let i = 0; i < unSortsArray.length; i++) {
+                    for (let j = 0; j < unSortsArray.length; j++) {
+                        if (unSortsArray[j] > unSortsArray[j + 1]) {
+                            temp = unSortsArray[j];
+                            unSortsArray[j] = unSortsArray[j + 1];
+                            unSortsArray[j + 1] = temp;
+                        }
+                    }
+                }
+                let sorted = unSortsArray.join('');
+
+                numbers.textContent = unSorts;
+                sortedNumber.textContent = sorted;
+                resultContainer.style.backgroundColor = '#acff2fc0';
+                resultContainer.style.color = 'black';
+                resultContainer.style.display = 'flex'
+            } else {
+                resultContainer.style.display = 'none'
+            }
+        })
+    </script>
+
+</body>
+
+</html>
