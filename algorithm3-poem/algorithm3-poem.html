@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem</title>
+</head>
+
+<body style="background: #333; color: wheat; padding: 10rem; font-size: 1.5rem;">
+
+    <div></div>
+    <button style="font-size: 1rem; padding: .5rem; color: wheat; background: #333; border-radius: 50px;">ساخت شعر
+        جدید</button>
+
+    <script src="./poem-api-crearor.js"></script>
+    <script>
+        document.querySelector('button').addEventListener('click', () => {
+            let objName = '';
+            document.querySelector('body>div').innerHTML = '';
+
+            fetch('./poem-api.txt')
+                .then(response => response.json())
+                .then(data => {
+
+                    function randWord(obj) {
+                        let randCategory = Object.keys(obj)[Math.floor(Math.random() * ((Object.keys(obj).length - 1) - 0) + 0)]
+                        let setArr = obj[randCategory];
+                        let randomWord = setArr[Math.floor(Math.random() * (setArr.length - 1) + 1)];
+                        return randomWord;
+                    }
+
+                    randAdj1 = '';
+                    randAdj2 = '';
+                    function randAdjective() {
+                        let randCategory = Object.keys(data.adjective)[Math.floor(Math.random() * ((Object.keys(data.adjective).length - 1) - 0) + 0)]
+                        let setArr = data.adjective[randCategory];
+                        randAdj1 = setArr[Math.floor(Math.random() * (setArr.length - 1) + 0)];
+                        randAdj2 = setArr[Math.floor(Math.random() * (setArr.length - 1) + 1)];
+                    }
+
+                    for (let i = 0; i < 10; i++) {
+                        randAdjective()
+                        let paragraph = document.createElement('p');
+                        paragraph.innerHTML = `
+                        ${randWord(data.subjects)} 
+                        ${randWord(data.adverbs)} 
+                        ${randWord(data.verbs)} 
+                        ${randWord(data.preposition)} 
+                        ${randWord(data.complement)} 
+                        ${randAdj1} 
+                        &nbsp&nbsp&nbsp&nbsp&nbsp ${randWord(data.subjects)} 
+                        ${randWord(data.adverbs)} 
+                        ${randWord(data.verbs)} 
+                        ${randWord(data.preposition)} 
+                        ${randWord(data.complement)} 
+                        ${randAdj2} 
+                        `;
+                        document.querySelector('body>div').appendChild(paragraph);
+
+                    }
+                    // ${randWord(randObj(data.subjects))}
+                    // ${data.subjects.randArr(data.subjects.randObj(data.subjects)).randObj(data.subjects)}
+                })
+        })
+    </script>
+</body>
+
+</html>
